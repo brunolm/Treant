@@ -1,4 +1,4 @@
 Treant
 ======
 
-Application to manage tasks, keep track of growth.
+Application to manage tasks, keep track of progress.
