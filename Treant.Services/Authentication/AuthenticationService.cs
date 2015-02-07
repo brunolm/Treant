@@ -20,7 +20,8 @@ namespace Treant.Services.Authentication
 
             using (var db = MefBootstrap.Resolve<ApplicationDbContext>())
             {
-                #region Temp Create User
+                // TODO: Remove
+                #region Temp Create User - Remove
 
                 if (db.Users.Count() == 0)
                 {

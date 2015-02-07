@@ -10,5 +10,19 @@
             <Setter Property="FontSize" Value="30" />
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
+        <Style x:Key="BoardBlockStyle" TargetType="Border">
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="CornerRadius" Value="2" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Width" Value="150" />
+            <Setter Property="MinHeight" Value="60" />
+        </Style>
+        <Style x:Key="BoardBlockTextStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+        </Style>
     </Application.Resources>
 </Application>
