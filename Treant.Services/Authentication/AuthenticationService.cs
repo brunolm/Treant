@@ -27,7 +27,7 @@ namespace Treant.Services.Authentication
                     db.Users.Add(new Domain.User
                     {
                         Name = "BrunoLM",
-                        Email = "brunolm7@gmail.com",
+                        Email = "brunolm7@mailinator.com",
                         Password = Hash("password", "BrunoLM")
                     });
                     db.SaveChanges();
