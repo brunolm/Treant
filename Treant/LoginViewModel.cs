@@ -27,11 +27,15 @@
 
         public RelayCommand SignInCommand { get; set; }
 
+        public RelayCommand ExitCommand { get; set; }
+
         [ImportingConstructor]
         public LoginViewModel(AuthenticationService authenticationService)
         {
             this.authenticationService = authenticationService;
+
             SignInCommand = new RelayCommand(SignInCommandExecute);
+            ExitCommand = new RelayCommand((o) => Application.Current.Shutdown());
         }
 
         private void SignInCommandExecute(object obj)
