@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Treant.Core;
 
 namespace Treant
 {
@@ -13,5 +14,10 @@ namespace Treant
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            MainWindow = ControlFactory.CreateWindow<LoginViewModel>();
+            MainWindow.Show();
+        }
     }
 }

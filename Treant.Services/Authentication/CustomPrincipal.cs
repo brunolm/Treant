@@ -9,7 +9,18 @@ namespace Treant.Services.Authentication
 {
     public class CustomPrincipal : IPrincipal
     {
-        public IIdentity Identity { get; }
+        private IIdentity identity;
+        public IIdentity Identity
+        {
+            get
+            {
+                return identity;
+            }
+            set
+            {
+                identity = value;
+            }
+        }
 
         public bool IsInRole(string role)
         {

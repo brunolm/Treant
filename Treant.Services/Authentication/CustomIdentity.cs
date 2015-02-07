@@ -4,23 +4,32 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using Treant.Domain;
 
 namespace Treant.Services.Authentication
 {
     public class CustomIdentity : IIdentity
     {
-        public string Name { get; private set; }
+        public User CurrentUser { get; private set; }
 
         public string AuthenticationType { get { return "Custom"; } }
 
-        public bool IsAuthenticated
+        public string Name
         {
-            get { return !String.IsNullOrEmpty(Name); }
+            get
+            {
+                return CurrentUser == null ? "Anonymous" : CurrentUser.Name;
+            }
         }
 
-        public CustomIdentity(string name)
+        public bool IsAuthenticated
         {
-            Name = name;
+            get { return CurrentUser != null; }
+        }
+
+        public CustomIdentity(User user)
+        {
+            CurrentUser = user;
         }
     }
 }
