@@ -1,11 +1,15 @@
 ﻿namespace Treant.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.Composition;
+    using System.Data.Entity;
     using System.Linq;
+    using System.Threading;
     using Treant.Core;
     using Treant.DataProvider;
     using Treant.Domain;
+    using Treant.Services.Authentication;
 
     [Export]
     public class BoardService : AuthenticatedBasedService
@@ -17,8 +21,53 @@
             using (var db = MefBootstrap.Resolve<ApplicationDbContext>())
             {
                 return db.Boards
+                    .Include(o => o.Owner)
                     .Where(o => o.Owner.ID == userID && !o.Deleted)
                     .ToList();
+            }
+        }
+
+        public bool Remove(Board board)
+        {
+            if (board == null)
+                throw new ArgumentNullException("board");
+
+            if (board.Owner.ID != CurrentUserID)
+                throw new UnauthorizedAccessException("Current user does not own this entity");
+
+            using (var db = MefBootstrap.Resolve<ApplicationDbContext>())
+            {
+                db.Boards.Attach(board);
+                board.Deleted = true;
+                return db.SaveChanges() > 0;
+            }
+        }
+
+        // TODO: Remove
+        public void CreateDummies()
+        {
+            var user = (Thread.CurrentPrincipal.Identity as CustomIdentity).CurrentUser;
+
+            using (var db = MefBootstrap.Resolve<ApplicationDbContext>())
+            {
+                db.Users.Attach(user);
+
+                if (db.Boards.Count() == 0)
+                {
+                    var boards = new List<Board>
+                    {
+                        new Board { Name = "C#", Owner = user },
+                        new Board { Name = "WPF", Owner = user },
+                        new Board { Name = "People Skills", Owner = user },
+                        new Board { Name = "Some other board", Owner = user },
+                        new Board { Name = "I can haz many boards", Owner = user },
+                        new Board { Name = "Look I'm a potato", Owner = user },
+                    };
+
+                    db.Boards.AddRange(boards);
+
+                    db.SaveChanges();
+                }
             }
         }
     }

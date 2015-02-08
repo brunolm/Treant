@@ -64,18 +64,10 @@
             AddCommand = new RelayCommand(AddCommandExecute);
             RemoveCommand = new RelayCommand(RemoveCommandExecute, RemoveCommandCanExecute);
 
-            //Boards = new ObservableCollection<Board>(boardService.GetUserBoards());
+            // TODO: Remove
+            boardService.CreateDummies();
 
-
-            Boards = new ObservableCollection<Board>(new List<Board>
-            {
-                new Board { Name = "C#", Owner = (Thread.CurrentPrincipal.Identity as CustomIdentity).CurrentUser },
-                new Board { Name = "WPF", Owner = (Thread.CurrentPrincipal.Identity as CustomIdentity).CurrentUser },
-                new Board { Name = "People Skills", Owner = (Thread.CurrentPrincipal.Identity as CustomIdentity).CurrentUser },
-                new Board { Name = "Some other board", Owner = (Thread.CurrentPrincipal.Identity as CustomIdentity).CurrentUser },
-                new Board { Name = "I can haz many boards", Owner = (Thread.CurrentPrincipal.Identity as CustomIdentity).CurrentUser },
-                new Board { Name = "Look I'm a potato", Owner = (Thread.CurrentPrincipal.Identity as CustomIdentity).CurrentUser },
-            });
+            Boards = new ObservableCollection<Board>(boardService.GetUserBoards());
         }
 
         private bool RemoveCommandCanExecute(object arg)
@@ -85,7 +77,8 @@
 
         private void RemoveCommandExecute(object obj)
         {
-            throw new NotImplementedException();
+            if (boardService.Remove(SelectedBoard))
+                Boards.Remove(SelectedBoard);
         }
 
         private void AddCommandExecute(object obj)
