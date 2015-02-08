@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Treant.Core;
-using Treant.Core.Extenders;
-using Treant.Domain;
-using Treant.Services;
-using Treant.Services.Authentication;
-using Treant.ViewModels;
-
-namespace Treant
+﻿namespace Treant
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel.Composition;
+    using System.Threading;
+    using Treant.Core;
+    using Treant.Core.Extenders;
+    using Treant.Domain;
+    using Treant.Services;
+    using Treant.Services.Authentication;
+    using Treant.ViewModels;
+
     [Export]
     public class MainViewModel : WindowViewModel
     {
@@ -32,7 +29,22 @@ namespace Treant
             }
         }
 
+        private Board selectedBoard;
+        public Board SelectedBoard
+        {
+            get { return selectedBoard; }
+            set
+            {
+                selectedBoard = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         public RelayCommand BoardDoubleClickCommand { get; set; }
+
+        public RelayCommand AddCommand { get; set; }
+        
+        public RelayCommand RemoveCommand { get; set; }
 
         [ImportingConstructor]
         public MainViewModel(BoardService boardService)
@@ -49,6 +61,9 @@ namespace Treant
                 boardView.ShowDialog();
             });
 
+            AddCommand = new RelayCommand(AddCommandExecute);
+            RemoveCommand = new RelayCommand(RemoveCommandExecute, RemoveCommandCanExecute);
+
             //Boards = new ObservableCollection<Board>(boardService.GetUserBoards());
 
 
@@ -61,6 +76,21 @@ namespace Treant
                 new Board { Name = "I can haz many boards", Owner = (Thread.CurrentPrincipal.Identity as CustomIdentity).CurrentUser },
                 new Board { Name = "Look I'm a potato", Owner = (Thread.CurrentPrincipal.Identity as CustomIdentity).CurrentUser },
             });
+        }
+
+        private bool RemoveCommandCanExecute(object arg)
+        {
+            return SelectedBoard != null;
+        }
+
+        private void RemoveCommandExecute(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AddCommandExecute(object obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }
