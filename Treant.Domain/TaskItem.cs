@@ -22,5 +22,7 @@ namespace Treant.Domain
         public uint Order { get; set; }
 
         public User Owner { get; set; }
+
+        public virtual Board OwnerBoard { get; set; }
     }
 }

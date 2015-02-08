@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Extenders\ControlExtender.cs" />
     <Compile Include="Extenders\INotifyPropertyChangedExtender.cs" />
+    <Compile Include="Extenders\IPrincipalExtender.cs" />
     <Compile Include="MefBootstrap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ControlFactory.cs" />

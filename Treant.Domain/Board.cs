@@ -15,5 +15,7 @@ namespace Treant.Domain
         public uint Order { get; set; }
 
         public User Owner { get; set; }
+
+        public virtual IQueryable<TaskItem> TaskItems { get; set; }
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Treant.Core;
 using Treant.Core.Extenders;
 using Treant.Domain;
+using Treant.Services;
 using Treant.Services.Authentication;
 using Treant.ViewModels;
 
@@ -17,6 +18,9 @@ namespace Treant
     [Export]
     public class MainViewModel : WindowViewModel
     {
+        [Import]
+        private BoardService boardService;
+
         private ObservableCollection<Board> boards;
         public ObservableCollection<Board> Boards
         {
@@ -30,8 +34,11 @@ namespace Treant
 
         public RelayCommand BoardDoubleClickCommand { get; set; }
 
-        public MainViewModel()
+        [ImportingConstructor]
+        public MainViewModel(BoardService boardService)
         {
+            this.boardService = boardService;
+
             WindowTitle = String.Format("Treant - Logged in as {0}", Thread.CurrentPrincipal.Identity.Name);
 
             BoardDoubleClickCommand = new RelayCommand((o) =>
@@ -41,6 +48,9 @@ namespace Treant
                 boardView.WithDataContext<BoardViewModel>(ctx => ctx.CurrentBoard = board);
                 boardView.ShowDialog();
             });
+
+            //Boards = new ObservableCollection<Board>(boardService.GetUserBoards());
+
 
             Boards = new ObservableCollection<Board>(new List<Board>
             {
