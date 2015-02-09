@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extenders\ControlExtender.cs" />
+    <Compile Include="Extenders\IEnumerableExtender.cs" />
+    <Compile Include="Extenders\IListExtender.cs" />
     <Compile Include="Extenders\INotifyPropertyChangedExtender.cs" />
     <Compile Include="Extenders\IPrincipalExtender.cs" />
     <Compile Include="Extenders\ObjectExtender.cs" />

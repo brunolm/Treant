@@ -21,8 +21,8 @@
             using (var db = MefBootstrap.Resolve<ApplicationDbContext>())
             {
                 return db.Boards
-                    .Include(o => o.Owner)
-                    .Where(o => o.Owner.ID == userID && !o.Deleted)
+                    .Where(o => o.OwnerID == userID && !o.Deleted)
+                    .OrderBy(o => o.Name)
                     .ToList();
             }
         }
@@ -40,7 +40,7 @@
             if (board == null)
                 throw new ArgumentNullException("board");
 
-            if (board.Owner.ID != CurrentUserID)
+            if (board.OwnerID != CurrentUserID)
                 throw new UnauthorizedAccessException("Current user does not own this entity");
 
             return base.Remove(board);

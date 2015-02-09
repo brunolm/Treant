@@ -5,6 +5,7 @@
     using System.Collections.ObjectModel;
     using System.ComponentModel.Composition;
     using System.Threading;
+    using System.Windows;
     using Treant.Core;
     using Treant.Core.Extenders;
     using Treant.Domain;
@@ -90,8 +91,11 @@
 
         private void RemoveCommandExecute(object obj)
         {
-            if (boardService.Remove(SelectedBoard))
+            if (base.ConfirmDeletion() == MessageBoxResult.Yes
+                && boardService.Remove(SelectedBoard))
+            {
                 Boards.Remove(SelectedBoard);
+            }
         }
 
         private void AddCommandExecute(object obj)
@@ -101,12 +105,18 @@
 
         private void ShowEditWindow(Board board)
         {
+            bool isNew = board.ID == default(int);
+
             var editBoardView = ControlFactory.CreateWindow<EditBoardViewModel>();
 
             if (board != null)
                 editBoardView.WithDataContext<EditBoardViewModel>(o => o.CurrentBoard = board);
 
-            editBoardView.ShowDialog();
+            if (editBoardView.ShowDialog() == true)
+            {
+                if (isNew)
+                    Boards.AddSorted(board, o => o.Name);
+            }
         }
     }
 }

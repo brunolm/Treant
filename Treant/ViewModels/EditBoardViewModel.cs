@@ -57,7 +57,10 @@ namespace Treant.ViewModels
             var result = boardService.Save(CurrentBoard);
 
             if (result.Valid)
+            {
+                window.DialogResult = true;
                 window.Close();
+            }
             else
             {
                 MessageBox.Show(String.Join(Environment.NewLine, result.ValidationResults.Select(o => o.ErrorMessage))
