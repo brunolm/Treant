@@ -37,9 +37,16 @@ namespace Treant.Core
             return view;
         }
 
-        public static Window CreateWindow<TViewModel>()
+        public static Window CreateWindow<TViewModel>(Window owner = null)
         {
-            return CreateView<TViewModel>() as Window;
+            var wnd = CreateView<TViewModel>() as Window;
+
+            owner = owner ?? Application.Current.MainWindow;
+
+            if (wnd != owner)
+                wnd.Owner = owner;
+
+            return wnd;
         }
     }
 }
