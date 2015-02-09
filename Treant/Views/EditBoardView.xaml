@@ -1,0 +1,43 @@
+﻿<Window x:Class="Treant.Views.EditBoardView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{Binding WindowTitle}" Height="150" Width="300">
+    <Grid>
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Label Content="Name" />
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <TextBox Text="{Binding CurrentBoard.Name}" Width="200" />
+            </StackPanel>
+
+            <Label Content="Order" Grid.Row="1" />
+            <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <TextBox Text="// TODO: Impl" Width="50" />
+            </StackPanel>
+            
+            <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Content="Save" 
+                        IsDefault="True"
+                        Command="{Binding SaveCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                        Style="{DynamicResource FormButtonsStyle}" />
+                
+                <Button Content="Cancel" 
+                        IsCancel="True"
+                        Command="{Binding CancelCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                        Style="{DynamicResource FormButtonsStyle}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

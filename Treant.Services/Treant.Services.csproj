@@ -53,6 +53,7 @@
     <Compile Include="Authentication\CustomIdentity.cs" />
     <Compile Include="Authentication\CustomPrincipal.cs" />
     <Compile Include="BoardService.cs" />
+    <Compile Include="EntityService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

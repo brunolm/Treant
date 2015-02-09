@@ -27,6 +27,14 @@
             }
         }
 
+        public OperationResult Save(Board board)
+        {
+            if (board.OwnerID == default(int))
+                board.OwnerID = CurrentUserID;
+
+            return base.Save(board);
+        }
+
         public bool Remove(Board board)
         {
             if (board == null)
@@ -35,13 +43,12 @@
             if (board.Owner.ID != CurrentUserID)
                 throw new UnauthorizedAccessException("Current user does not own this entity");
 
-            using (var db = MefBootstrap.Resolve<ApplicationDbContext>())
-            {
-                db.Boards.Attach(board);
-                board.Deleted = true;
-                return db.SaveChanges() > 0;
-            }
+            return base.Remove(board);
         }
+
+
+
+        
 
         // TODO: Remove
         public void CreateDummies()

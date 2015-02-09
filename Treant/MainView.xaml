@@ -20,6 +20,15 @@
                         <Label Content="_Add" />
                     </StackPanel>
                 </Button>
+                <Button Command="{Binding EditCommand}">
+                    <Button.ToolTip>
+                        <TextBlock Text="Edit selected entry" />
+                    </Button.ToolTip>
+                    <StackPanel>
+                        <Image Source="Resources\Images\SmallEdit.png" />
+                        <Label Content="_Edit" />
+                    </StackPanel>
+                </Button>
                 <Button Command="{Binding RemoveCommand}">
                     <Button.ToolTip>
                         <TextBlock Text="Remove selected entry" />

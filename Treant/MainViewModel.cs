@@ -43,6 +43,8 @@
         public RelayCommand BoardDoubleClickCommand { get; set; }
 
         public RelayCommand AddCommand { get; set; }
+
+        public RelayCommand EditCommand { get; set; }
         
         public RelayCommand RemoveCommand { get; set; }
 
@@ -62,12 +64,23 @@
             });
 
             AddCommand = new RelayCommand(AddCommandExecute);
+            EditCommand = new RelayCommand(EditCommandExecute, EditCommandCanExecute);
             RemoveCommand = new RelayCommand(RemoveCommandExecute, RemoveCommandCanExecute);
 
             // TODO: Remove
             boardService.CreateDummies();
 
             Boards = new ObservableCollection<Board>(boardService.GetUserBoards());
+        }
+
+        private bool EditCommandCanExecute(object arg)
+        {
+            return SelectedBoard != null;
+        }
+
+        private void EditCommandExecute(object obj)
+        {
+            ShowEditWindow(SelectedBoard);
         }
 
         private bool RemoveCommandCanExecute(object arg)
@@ -83,7 +96,17 @@
 
         private void AddCommandExecute(object obj)
         {
-            throw new NotImplementedException();
+            ShowEditWindow(new Board());
+        }
+
+        private void ShowEditWindow(Board board)
+        {
+            var editBoardView = ControlFactory.CreateWindow<EditBoardViewModel>();
+
+            if (board != null)
+                editBoardView.WithDataContext<EditBoardViewModel>(o => o.CurrentBoard = board);
+
+            editBoardView.ShowDialog();
         }
     }
 }

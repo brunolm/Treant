@@ -69,6 +69,7 @@
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BoardViewModel.cs" />
+    <Compile Include="ViewModels\EditBoardViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Page Include="LoginView.xaml">
       <SubType>Designer</SubType>
@@ -83,6 +84,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\BoardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditBoardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,6 +144,10 @@
   <ItemGroup>
     <Resource Include="Resources\Images\LargeRemove.png" />
     <Resource Include="Resources\Images\SmallRemove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\LargeEdit.png" />
+    <Resource Include="Resources\Images\SmallEdit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
