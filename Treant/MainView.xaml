@@ -11,7 +11,15 @@
         </Grid.RowDefinitions>
 
         <ToolBarTray IsLocked="True">
-            <core:SimpleToolBar>
+            <core:SimpleToolBar x:Name="Pussy">
+                <ToolBar.Resources>
+                    <Style x:Key="{x:Static ToolBar.ButtonStyleKey}" TargetType="Button">
+                        <Setter Property="Width" Value="60" />
+                    </Style>
+                    <Style TargetType="Image">
+                        <Setter Property="Stretch" Value="None" />
+                    </Style>
+                </ToolBar.Resources>
                 <Button Command="{Binding AddCommand}">
                     <Button.ToolTip>
                         <TextBlock Text="Add new entry" />
@@ -49,13 +57,35 @@
                     <WrapPanel IsItemsHost="True" />
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
+            <ListBox.InputBindings>
+                <KeyBinding Gesture="Enter"
+                            Command="{Binding DataContext.BoardOpenCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                            CommandParameter="{Binding SelectedBoard}"
+                            />
+                <KeyBinding Gesture="Ctrl+N"
+                            Command="{Binding DataContext.AddCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                            />
+                <KeyBinding Gesture="Ctrl+Enter"
+                            Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                            />
+                <KeyBinding Gesture="Delete"
+                            Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                            />
+                <KeyBinding Gesture="Ctrl+R"
+                            Command="{Binding DataContext.RefreshCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                            />
+                <KeyBinding Gesture="F5"
+                            Command="{Binding DataContext.RefreshCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                            />
+            </ListBox.InputBindings>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border Style="{DynamicResource BoardBlockStyle}">
                         <Border.InputBindings>
                             <MouseBinding Gesture="LeftDoubleClick"
-                                Command="{Binding DataContext.BoardDoubleClickCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                                CommandParameter="{Binding}" />
+                                          Command="{Binding DataContext.BoardOpenCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                          CommandParameter="{Binding}"
+                                          />
                         </Border.InputBindings>
                         <TextBlock Text="{Binding Name}" Style="{DynamicResource BoardBlockTextStyle}" />
                     </Border>

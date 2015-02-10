@@ -8,6 +8,7 @@
     using System.Threading;
     using System.Windows;
     using System.Windows.Data;
+    using System.Windows.Input;
     using Treant.Core;
     using Treant.Core.Extenders;
     using Treant.Domain;
@@ -43,13 +44,15 @@
             }
         }
 
-        public RelayCommand BoardDoubleClickCommand { get; set; }
+        public RelayCommand BoardOpenCommand { get; set; }
 
         public RelayCommand AddCommand { get; set; }
 
         public RelayCommand EditCommand { get; set; }
         
         public RelayCommand RemoveCommand { get; set; }
+
+        public RelayCommand RefreshCommand { get; set; }
 
         [ImportingConstructor]
         public MainViewModel(BoardService boardService)
@@ -58,21 +61,27 @@
 
             WindowTitle = String.Format("Treant - Logged in as {0}", Thread.CurrentPrincipal.Identity.Name);
 
-            BoardDoubleClickCommand = new RelayCommand((o) =>
+            BoardOpenCommand = new RelayCommand((o) =>
             {
                 var board = o as Board;
                 var boardView = ControlFactory.CreateWindow<BoardViewModel>();
                 boardView.WithDataContext<BoardViewModel>(ctx => ctx.CurrentBoard = board);
-                boardView.ShowDialog();
+                boardView.Show();
             });
 
             AddCommand = new RelayCommand(AddCommandExecute);
             EditCommand = new RelayCommand(EditCommandExecute, EditCommandCanExecute);
             RemoveCommand = new RelayCommand(RemoveCommandExecute, RemoveCommandCanExecute);
+            RefreshCommand = new RelayCommand(RefreshCommandExecute);
 
             // TODO: Remove
             boardService.CreateDummies();
 
+            Boards = new ObservableCollection<Board>(boardService.GetUserBoards());
+        }
+
+        private void RefreshCommandExecute(object obj)
+        {
             Boards = new ObservableCollection<Board>(boardService.GetUserBoards());
         }
 
@@ -118,9 +127,23 @@
             {
                 if (isNew)
                     Boards.AddSorted(board, o => o.Name);
+                else
+                    ReAttachBoard(board);
             }
             else
-                CollectionViewSource.GetDefaultView(Boards).Refresh();
+            {
+                if (!isNew)
+                {
+                    ReAttachBoard(board);
+                }
+            }
+        }
+
+        private void ReAttachBoard(Board board)
+        {
+            Boards.Remove(SelectedBoard);
+            Boards.AddSorted(board, o => o.Name);
+            SelectedBoard = board;
         }
     }
 }

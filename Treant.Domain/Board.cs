@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Treant.Domain
+﻿namespace Treant.Domain
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class Board : Entity
     {
         [Required]
