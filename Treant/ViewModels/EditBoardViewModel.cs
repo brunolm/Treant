@@ -20,6 +20,7 @@ namespace Treant.ViewModels
     {
         private BoardService boardService;
 
+        private Board originalBoard = new Board();
         private Board currentBoard;
         public Board CurrentBoard
         {
@@ -28,6 +29,9 @@ namespace Treant.ViewModels
             {
                 currentBoard = value;
                 this.RaisePropertyChanged();
+
+                if (value != originalBoard)
+                    originalBoard = EntityService.Clone(value);
             }
         }
 
@@ -41,6 +45,13 @@ namespace Treant.ViewModels
             CurrentBoard = new Board();
 
             SaveCommand = new RelayCommand(SaveCommandExecute, SaveCommandCanExecute);
+            CancelCommand = new RelayCommand(CancelCommandExecute);
+        }
+
+        private void CancelCommandExecute(object obj)
+        {
+            CurrentBoard.Name = originalBoard.Name;
+            (obj as Window).Close();
         }
 
         private bool SaveCommandCanExecute(object arg)

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using Treant.Core;
     using Treant.DataProvider;
@@ -56,10 +57,25 @@
         public virtual ICollection<ValidationResult> Validate<T>(T obj) where T : Entity
         {
             var results = new List<ValidationResult>();
-            
+
             Validator.TryValidateObject(obj, new ValidationContext(obj), results, true);
 
             return results;
+        }
+
+        public static T Clone<T>(T source) where T : Entity
+        {
+            if (source == null)
+                return null;
+
+            if (source == default(T))
+                return default(T);
+
+            using (var db = MefBootstrap.Resolve<ApplicationDbContext>())
+            {
+                db.Set<T>().Attach(source);
+                return db.Entry(source).OriginalValues.ToObject() as T;
+            }
         }
     }
 }

@@ -17,7 +17,7 @@
             }
         }
 
-        public virtual RelayCommand CancelCommand { get; private set; }
+        public RelayCommand CancelCommand { get; internal set; }
 
         public WindowViewModel()
         {
