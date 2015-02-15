@@ -1,41 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Treant.Domain;
-using Treant.Core.Extenders;
-using Treant.Core;
-using System.ComponentModel.DataAnnotations;
-using System.Windows;
-using Treant.Services;
-using System.Threading;
-using Treant.Services.Authentication;
-
-namespace Treant.ViewModels
+﻿namespace Treant.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.Composition;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using Treant.Core;
+    using Treant.Core.Extenders;
+    using Treant.Domain;
+    using Treant.Services;
+    using Treant.Services.Authentication;
+
     [Export]
     public class EditBoardViewModel : WindowViewModel
     {
         private BoardService boardService;
-
-        private Board originalBoard = new Board();
-        private Board currentBoard;
-        public Board CurrentBoard
-        {
-            get { return currentBoard; }
-            set
-            {
-                currentBoard = value;
-                this.RaisePropertyChanged();
-
-                if (value != originalBoard)
-                    originalBoard = EntityService.Clone(value);
-            }
-        }
-
-        public RelayCommand SaveCommand { get; private set; }
 
         [ImportingConstructor]
         public EditBoardViewModel(BoardService boardService)
@@ -48,10 +31,33 @@ namespace Treant.ViewModels
             CancelCommand = new RelayCommand(CancelCommandExecute);
         }
 
+        private Board originalBoard;
+        private Board currentBoard;
+
+        [PropertyChanged.DoNotCheckEquality]
+        public Board CurrentBoard
+        {
+            get
+            {
+                return this.currentBoard;
+            }
+            set
+            {
+                this.currentBoard = value;
+                this.originalBoard = EntityService.Clone(value);
+            }
+        }
+
+        public RelayCommand SaveCommand { get; private set; }
+
         private void CancelCommandExecute(object obj)
         {
-            CurrentBoard.Name = originalBoard.Name;
-            (obj as Window).Close();
+            var wnd = (obj as Window);
+
+            this.currentBoard = originalBoard;
+
+            wnd.DialogResult = false;
+            wnd.Close();
         }
 
         private bool SaveCommandCanExecute(object arg)

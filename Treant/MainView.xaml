@@ -65,7 +65,7 @@
                 <KeyBinding Gesture="Ctrl+N"
                             Command="{Binding DataContext.AddCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                             />
-                <KeyBinding Gesture="Ctrl+Enter"
+                <KeyBinding Gesture="F2"
                             Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                             />
                 <KeyBinding Gesture="Delete"

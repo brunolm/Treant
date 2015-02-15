@@ -1,19 +1,15 @@
 ﻿namespace Treant
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.ComponentModel;
     using System.ComponentModel.Composition;
     using System.Threading;
     using System.Windows;
     using System.Windows.Data;
-    using System.Windows.Input;
     using Treant.Core;
     using Treant.Core.Extenders;
     using Treant.Domain;
     using Treant.Services;
-    using Treant.Services.Authentication;
     using Treant.ViewModels;
 
     [Export]
@@ -21,38 +17,6 @@
     {
         [Import]
         private BoardService boardService;
-
-        private ObservableCollection<Board> boards;
-        public ObservableCollection<Board> Boards
-        {
-            get { return boards; }
-            set
-            {
-                boards = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private Board selectedBoard;
-        public Board SelectedBoard
-        {
-            get { return selectedBoard; }
-            set
-            {
-                selectedBoard = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        public RelayCommand BoardOpenCommand { get; set; }
-
-        public RelayCommand AddCommand { get; set; }
-
-        public RelayCommand EditCommand { get; set; }
-        
-        public RelayCommand RemoveCommand { get; set; }
-
-        public RelayCommand RefreshCommand { get; set; }
 
         [ImportingConstructor]
         public MainViewModel(BoardService boardService)
@@ -79,6 +43,20 @@
 
             Boards = new ObservableCollection<Board>(boardService.GetUserBoards());
         }
+
+        public ObservableCollection<Board> Boards { get; set; }
+
+        public Board SelectedBoard { get; set; }
+
+        public RelayCommand BoardOpenCommand { get; set; }
+
+        public RelayCommand AddCommand { get; set; }
+
+        public RelayCommand EditCommand { get; set; }
+
+        public RelayCommand RemoveCommand { get; set; }
+
+        public RelayCommand RefreshCommand { get; set; }
 
         private void RefreshCommandExecute(object obj)
         {
@@ -123,19 +101,13 @@
             if (board != null)
                 editBoardView.WithDataContext<EditBoardViewModel>(o => o.CurrentBoard = board);
 
-            if (editBoardView.ShowDialog() == true)
+            if (editBoardView.ShowDialog() == true && isNew)
             {
-                if (isNew)
-                    Boards.AddSorted(board, o => o.Name);
-                else
-                    ReAttachBoard(board);
+                Boards.AddSorted(board, o => o.Name);
             }
             else
             {
-                if (!isNew)
-                {
-                    ReAttachBoard(board);
-                }
+                ReAttachBoard(editBoardView.GetDataContext<EditBoardViewModel>().CurrentBoard);
             }
         }
 
@@ -143,6 +115,7 @@
         {
             Boards.Remove(SelectedBoard);
             Boards.AddSorted(board, o => o.Name);
+
             SelectedBoard = board;
         }
     }

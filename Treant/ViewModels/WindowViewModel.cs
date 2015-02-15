@@ -6,16 +6,7 @@
 
     public abstract class WindowViewModel : BaseViewModel
     {
-        private string windowTitle;
-        public virtual string WindowTitle
-        {
-            get { return windowTitle; }
-            set
-            {
-                windowTitle = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        public virtual string WindowTitle { get; set; }
 
         public RelayCommand CancelCommand { get; internal set; }
 

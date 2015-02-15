@@ -8,7 +8,7 @@ namespace Treant.Core.Extenders
 {
     public static class IListExtender
     {
-        public static void AddSorted<TSource, TKey>(this IList<TSource> list, TSource item, Func<TSource, TKey> orderByKeySelector, Comparer<TKey> comparer = null)
+        public static int AddSorted<TSource, TKey>(this IList<TSource> list, TSource item, Func<TSource, TKey> orderByKeySelector, Comparer<TKey> comparer = null)
         {
             if (comparer == null)
                 comparer = Comparer<TKey>.Default;
@@ -19,6 +19,8 @@ namespace Treant.Core.Extenders
                 i++;
 
             list.Insert(i, item);
+
+            return i;
         }
     }
 }

@@ -14,16 +14,7 @@
     {
         private AuthenticationService authenticationService;
 
-        private string name;
-        public string Name
-        {
-            get { return name; }
-            set
-            {
-                name = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        public string Name { get; set; }
 
         public RelayCommand SignInCommand { get; set; }
 

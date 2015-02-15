@@ -3,10 +3,8 @@
     using System;
     using System.ComponentModel;
 
-    public abstract class BaseViewModel : INotifyPropertyChanged
+    [PropertyChanged.ImplementPropertyChanged]
+    public abstract class BaseViewModel
     {
-#pragma warning disable 67
-        public event PropertyChangedEventHandler PropertyChanged;
-#pragma warning restore 67
     }
 }
