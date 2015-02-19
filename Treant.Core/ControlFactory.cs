@@ -31,7 +31,11 @@ namespace Treant.Core
 
             var view = MefBootstrap.Create(viewType) as Control;
 
-            viewType.GetMethod("InitializeComponent").Invoke(view, null);
+            var initializeMethod = viewType.GetMethod("InitializeComponent");
+            
+            if (initializeMethod != null)
+                initializeMethod.Invoke(view, null);
+
             view.DataContext = MefBootstrap.Create(viewModelType);
 
             return view;
@@ -47,6 +51,11 @@ namespace Treant.Core
                 wnd.Owner = owner;
 
             return wnd;
+        }
+
+        public static TabItem CreateTab<TViewModel>(TabItem owner = null)
+        {
+            return CreateView<TViewModel>() as TabItem;
         }
     }
 }

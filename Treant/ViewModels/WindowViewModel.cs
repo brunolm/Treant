@@ -14,11 +14,5 @@
         {
             CancelCommand = new RelayCommand((o) => (o as Window).Close());
         }
-
-        public virtual MessageBoxResult ConfirmDeletion()
-        {
-            return MessageBox.Show("Are you sure you want to delete?", "Confirm deletion"
-                , MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-        }
     }
 }

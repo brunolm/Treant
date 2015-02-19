@@ -45,7 +45,7 @@
                 this.authenticationService.Authenticate(Name, password);
 
                 var loginWindow = Application.Current.MainWindow;
-                Application.Current.MainWindow = ControlFactory.CreateWindow<MainViewModel>();
+                Application.Current.MainWindow = ControlFactory.CreateWindow<BoardsViewModel>();
                 loginWindow.Close();
                 Application.Current.MainWindow.Show();
             }
