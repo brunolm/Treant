@@ -14,6 +14,7 @@
     using Treant.Messages;
     using Treant.Services;
     using Treant.ViewModels;
+    using Treant.ViewModels.Controls;
 
     [Export]
     public class BoardsViewModel : TabItemViewModel
@@ -30,9 +31,13 @@
 
             BoardOpenCommand = new RelayCommand(BoardOpenCommandExecute);
 
-            AddCommand = new RelayCommand(AddCommandExecute);
-            EditCommand = new RelayCommand(EditCommandExecute, EditCommandCanExecute);
-            RemoveCommand = new RelayCommand(RemoveCommandExecute, RemoveCommandCanExecute);
+            ToolBarViewModel = new ElementCreatorToolBarViewModel
+            {
+                AddCommand = new RelayCommand(AddCommandExecute),
+                EditCommand = new RelayCommand(EditCommandExecute, EditCommandCanExecute),
+                RemoveCommand = new RelayCommand(RemoveCommandExecute, RemoveCommandCanExecute),
+            };
+
             RefreshCommand = new RelayCommand(RefreshCommandExecute);
 
             // TODO: Remove
@@ -47,11 +52,7 @@
 
         public RelayCommand BoardOpenCommand { get; set; }
 
-        public RelayCommand AddCommand { get; set; }
-
-        public RelayCommand EditCommand { get; set; }
-
-        public RelayCommand RemoveCommand { get; set; }
+        public ElementCreatorToolBarViewModel ToolBarViewModel { get; set; }
 
         public RelayCommand RefreshCommand { get; set; }
 

@@ -76,9 +76,13 @@
     <Compile Include="Messages\BoardOpenMessage.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BoardViewModel.cs" />
+    <Compile Include="ViewModels\Controls\ElementCreatorToolBarViewModel.cs" />
     <Compile Include="ViewModels\EditBoardViewModel.cs" />
     <Compile Include="ViewModels\TabViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
+    <Compile Include="Views\Controls\ElementCreatorToolBarView.xaml.cs">
+      <DependentUpon>ElementCreatorToolBarView.xaml</DependentUpon>
+    </Compile>
     <Page Include="LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -96,6 +100,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\BoardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Controls\ElementCreatorToolBarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

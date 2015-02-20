@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="Treant.Views.Controls.ElementCreatorToolBarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:core="clr-namespace:Treant.Core.Controls;assembly=Treant.Core"
+             mc:Ignorable="d">
+    <Grid>
+        <StackPanel>
+            <ToolBarTray IsLocked="True">
+                <core:SimpleToolBar>
+                    <ToolBar.Resources>
+                        <Style x:Key="{x:Static ToolBar.ButtonStyleKey}" TargetType="Button">
+                            <Setter Property="Width" Value="60" />
+                        </Style>
+                        <Style TargetType="Image">
+                            <Setter Property="Stretch" Value="None" />
+                        </Style>
+                    </ToolBar.Resources>
+                    <Button Command="{Binding AddCommand}">
+                        <Button.ToolTip>
+                            <TextBlock Text="Add new entry" />
+                        </Button.ToolTip>
+                        <StackPanel>
+                            <Image Source="/Treant;component\Resources\Images\SmallAdd.png" />
+                            <Label Content="_Add" />
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding EditCommand}">
+                        <Button.ToolTip>
+                            <TextBlock Text="Edit selected entry" />
+                        </Button.ToolTip>
+                        <StackPanel>
+                            <Image Source="/Treant;component\Resources\Images\SmallEdit.png" />
+                            <Label Content="_Edit" />
+                        </StackPanel>
+                    </Button>
+                    <Button Command="{Binding RemoveCommand}">
+                        <Button.ToolTip>
+                            <TextBlock Text="Remove selected entry" />
+                        </Button.ToolTip>
+                        <StackPanel>
+                            <Image Source="/Treant;component\Resources\Images\SmallRemove.png" />
+                            <Label Content="_Remove" />
+                        </StackPanel>
+                    </Button>
+                </core:SimpleToolBar>
+            </ToolBarTray>
+        </StackPanel>
+    </Grid>
+</UserControl>
