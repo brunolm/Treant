@@ -28,7 +28,7 @@
 
             SelectedTab = homeTabItem;
 
-            WindowTitle = "Boards - Treant";
+            WindowTitle = "Treant - Boards";
         }
 
         public ObservableCollection<TabItem> Tabs { get; set; }
@@ -51,6 +51,7 @@
             if (tabItem == null)
             {
                 Tabs.Add(message.BoardView);
+                SelectedTab = message.BoardView;
             }
             else
             {
