@@ -28,9 +28,6 @@
             this.boardService = boardService;
             this.eventAggregator = eventAggregator;
 
-            Header = "Home";
-            ToolTip = String.Format("Treant - Logged in as {0}", Thread.CurrentPrincipal.Identity.Name);
-
             BoardOpenCommand = new RelayCommand(BoardOpenCommandExecute);
 
             AddCommand = new RelayCommand(AddCommandExecute);
@@ -62,11 +59,12 @@
         {
             var board = obj as Board;
             var boardView = ControlFactory.CreateTab<BoardViewModel>();
-            boardView.WithDataContext<BoardViewModel>(ctx =>
+
+            boardView.Header = board.Name;
+            boardView.ToolTip = board.ID.ToString();
+            (boardView.Content as Control).WithDataContext<BoardViewModel>(ctx =>
             {
                 ctx.CurrentBoard = board;
-                ctx.Header = board.Name;
-                ctx.ToolTip = board.ID.ToString();
             });
 
             eventAggregator.Publish(new BoardOpenMessage(boardView));

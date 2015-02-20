@@ -4,6 +4,12 @@
         Title="{Binding WindowTitle}"
         Height="500" Width="925">
     <Grid>
-        <TabControl ItemsSource="{Binding Tabs}" SelectedIndex="0" />
+        <TabControl ItemsSource="{Binding Tabs}" SelectedItem="{Binding SelectedTab}">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="MinWidth" Value="80" />
+                </Style>
+            </TabControl.Resources>
+        </TabControl>
     </Grid>
 </Window>
