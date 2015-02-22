@@ -15,5 +15,9 @@ namespace Treant.ViewModels.Controls
         public RelayCommand EditCommand { get; set; }
 
         public RelayCommand RemoveCommand { get; set; }
+
+        public RelayCommand OpenCommand { get; set; }
+
+        public RelayCommand RefreshCommand { get; set; }
     }
 }

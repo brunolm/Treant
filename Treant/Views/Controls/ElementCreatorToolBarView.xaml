@@ -17,6 +17,16 @@
                             <Setter Property="Stretch" Value="None" />
                         </Style>
                     </ToolBar.Resources>
+                    <Button Command="{Binding OpenCommand}">
+                        <Button.ToolTip>
+                            <TextBlock Text="Add new entry" />
+                        </Button.ToolTip>
+                        <StackPanel>
+                            <Image Source="/Treant;component\Resources\Images\SmallOpen.png" />
+                            <Label Content="_Open" />
+                        </StackPanel>
+                    </Button>
+                    <Separator />
                     <Button Command="{Binding AddCommand}">
                         <Button.ToolTip>
                             <TextBlock Text="Add new entry" />
@@ -41,7 +51,17 @@
                         </Button.ToolTip>
                         <StackPanel>
                             <Image Source="/Treant;component\Resources\Images\SmallRemove.png" />
-                            <Label Content="_Remove" />
+                            <Label Content="Remo_ve" />
+                        </StackPanel>
+                    </Button>
+                    <Separator />
+                    <Button Command="{Binding RefreshCommand}">
+                        <Button.ToolTip>
+                            <TextBlock Text="Add new entry" />
+                        </Button.ToolTip>
+                        <StackPanel>
+                            <Image Source="/Treant;component\Resources\Images\SmallRefresh.png" />
+                            <Label Content="_Refresh" />
                         </StackPanel>
                     </Button>
                 </core:SimpleToolBar>

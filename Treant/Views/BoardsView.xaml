@@ -24,7 +24,7 @@
             </ListBox.ItemsPanel>
             <ListBox.InputBindings>
                 <KeyBinding Gesture="Enter"
-                            Command="{Binding DataContext.BoardOpenCommand, ElementName=root}"
+                            Command="{Binding DataContext.ToolBarViewModel.OpenCommand, ElementName=root}"
                             CommandParameter="{Binding SelectedBoard}"
                             />
                 <KeyBinding Gesture="Ctrl+N"
@@ -37,10 +37,10 @@
                             Command="{Binding DataContext.ToolBarViewModel.RemoveCommand, ElementName=root}"
                             />
                 <KeyBinding Gesture="Ctrl+R"
-                            Command="{Binding DataContext.RefreshCommand, ElementName=root}"
+                            Command="{Binding DataContext.ToolBarViewModel.RefreshCommand, ElementName=root}"
                             />
                 <KeyBinding Gesture="F5"
-                            Command="{Binding DataContext.RefreshCommand, ElementName=root}"
+                            Command="{Binding DataContext.ToolBarViewModel.RefreshCommand, ElementName=root}"
                             />
             </ListBox.InputBindings>
             <ListBox.ItemTemplate>
@@ -48,7 +48,7 @@
                     <Border Style="{DynamicResource BoardBlockStyle}">
                         <Border.InputBindings>
                             <MouseBinding Gesture="LeftDoubleClick"
-                                          Command="{Binding DataContext.BoardOpenCommand, ElementName=root}"
+                                          Command="{Binding DataContext.ToolBarViewModel.OpenCommand, ElementName=root}"
                                           CommandParameter="{Binding}"
                                           />
                         </Border.InputBindings>

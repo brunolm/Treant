@@ -29,16 +29,15 @@
             this.boardService = boardService;
             this.eventAggregator = eventAggregator;
 
-            BoardOpenCommand = new RelayCommand(BoardOpenCommandExecute);
-
             ToolBarViewModel = new ElementCreatorToolBarViewModel
             {
                 AddCommand = new RelayCommand(AddCommandExecute),
                 EditCommand = new RelayCommand(EditCommandExecute, EditCommandCanExecute),
                 RemoveCommand = new RelayCommand(RemoveCommandExecute, RemoveCommandCanExecute),
+                OpenCommand = new RelayCommand(BoardOpenCommandExecute, BoardOpenCommandCanExecute),
+                RefreshCommand = new RelayCommand(RefreshCommandExecute),
             };
 
-            RefreshCommand = new RelayCommand(RefreshCommandExecute);
 
             // TODO: Remove
             boardService.CreateDummies();
@@ -50,22 +49,22 @@
 
         public Board SelectedBoard { get; set; }
 
-        public RelayCommand BoardOpenCommand { get; set; }
-
         public ElementCreatorToolBarViewModel ToolBarViewModel { get; set; }
 
-        public RelayCommand RefreshCommand { get; set; }
+        private bool BoardOpenCommandCanExecute(object obj)
+        {
+            return SelectedBoard != null;
+        }
 
         private void BoardOpenCommandExecute(object obj)
         {
-            var board = obj as Board;
             var boardView = ControlFactory.CreateTab<BoardViewModel>();
 
-            boardView.Header = board.Name;
-            boardView.ToolTip = board.ID.ToString();
+            boardView.Header = SelectedBoard.Name;
+            boardView.ToolTip = SelectedBoard.ID.ToString();
             (boardView.Content as Control).WithDataContext<BoardViewModel>(ctx =>
             {
-                ctx.CurrentBoard = board;
+                ctx.CurrentBoard = SelectedBoard;
             });
 
             eventAggregator.Publish(new BoardOpenMessage(boardView));
