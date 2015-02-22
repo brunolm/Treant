@@ -6,6 +6,7 @@
     using System.Data.Entity;
     using System.Linq;
     using System.Threading;
+    using System.Threading.Tasks;
     using Treant.Core;
     using Treant.DataProvider;
     using Treant.Domain;
@@ -47,7 +48,6 @@
         }
 
 
-
         
 
         // TODO: Remove
@@ -75,6 +75,17 @@
 
                     db.SaveChanges();
                 }
+            }
+        }
+
+        public IEnumerable<TaskItem> GetTaskItems(Board board)
+        {
+            using (var db = MefBootstrap.Resolve<ApplicationDbContext>())
+            {
+                return db.Set<Board>()
+                    .Include(o => o.TaskItems)
+                    .Single(o => o.ID == board.ID)
+                    .TaskItems;
             }
         }
     }

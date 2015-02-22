@@ -10,6 +10,8 @@
             <localc:ElementCreatorToolBarView DataContext="{Binding ToolBarViewModel}" />
 
             <TextBlock Text="{Binding CurrentBoard.Name}" Style="{DynamicResource H1Style}" />
+
+            <ListBox ItemsSource="{Binding TaskItems}" SelectedItem="{Binding SelectedTaskItem}" />
         </StackPanel>
     </Grid>
 </UserControl>

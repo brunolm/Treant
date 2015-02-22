@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Treant.Domain
+﻿namespace Treant.Domain
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class TaskItem : Entity
     {
         [Required]
@@ -21,7 +21,7 @@ namespace Treant.Domain
 
         public uint Order { get; set; }
 
-        public User Owner { get; set; }
+        public int OwnerBoardID { get; set; }
 
         public virtual Board OwnerBoard { get; set; }
     }

@@ -10,6 +10,11 @@
 
     public class Board : Entity
     {
+        public Board()
+        {
+            TaskItems = new List<TaskItem>();
+        }
+
         [Required]
         public string Name { get; set; }
 
@@ -20,6 +25,6 @@
 
         public virtual User Owner { get; set; }
 
-        public virtual IQueryable<TaskItem> TaskItems { get; set; }
+        public virtual ICollection<TaskItem> TaskItems { get; set; }
     }
 }
