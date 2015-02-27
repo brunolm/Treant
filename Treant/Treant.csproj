@@ -76,6 +76,7 @@
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Messages\BoardOpenMessage.cs" />
     <Compile Include="MockViewModels\BoardsViewModel.cs" />
+    <Compile Include="MockViewModels\BoardViewModel.cs" />
     <Compile Include="MockViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BoardViewModel.cs" />

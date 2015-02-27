@@ -5,8 +5,12 @@
              xmlns:localc="clr-namespace:Treant.Views.Controls"
              xmlns:core="clr-namespace:Treant.Core.Controls;assembly=Treant.Core"
              xmlns:behaviors="clr-namespace:Treant.Core.Behaviors;assembly=Treant.Core"
+             xmlns:mvm="clr-namespace:Treant.MockViewModels"
              MinWidth="200" MinHeight="100"
              Width="Auto" Height="Auto">
+    <UserControl.DataContext>
+        <mvm:BoardViewModel />
+    </UserControl.DataContext>
     <Grid>
         <StackPanel>
             <localc:ElementCreatorToolBarView DataContext="{Binding ToolBarViewModel}" />
@@ -14,6 +18,11 @@
             <TextBlock Text="{Binding CurrentBoard.Name}" Style="{DynamicResource H1Style}" />
 
             <TreeView ItemsSource="{Binding TaskItems}">
+                <TreeView.Resources>
+                    <Style TargetType="TreeViewItem">
+                        <Setter Property="IsExpanded" Value="True" />
+                    </Style>
+                </TreeView.Resources>
                 <e:Interaction.Behaviors>
                     <behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedTaskItem, Mode=TwoWay}" />
                 </e:Interaction.Behaviors>
