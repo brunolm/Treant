@@ -3,10 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:core="clr-namespace:Treant.Core.Controls;assembly=Treant.Core"
              xmlns:localc="clr-namespace:Treant.Views.Controls"
+             xmlns:mvm="clr-namespace:Treant.MockViewModels"
              FocusManager.FocusedElement="{Binding ElementName=Boards}"
              x:Name="root"
              MinHeight="150" MinWidth="250"
              Height="Auto" Width="Auto">
+    <UserControl.DataContext>
+        <mvm:BoardsViewModel />
+    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
