@@ -1,8 +1,10 @@
 ﻿<UserControl x:Class="Treant.Views.BoardView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:e="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:localc="clr-namespace:Treant.Views.Controls"
              xmlns:core="clr-namespace:Treant.Core.Controls;assembly=Treant.Core"
+             xmlns:behaviors="clr-namespace:Treant.Core.Behaviors;assembly=Treant.Core"
              MinWidth="200" MinHeight="100"
              Width="Auto" Height="Auto">
     <Grid>
@@ -11,7 +13,18 @@
 
             <TextBlock Text="{Binding CurrentBoard.Name}" Style="{DynamicResource H1Style}" />
 
-            <ListBox ItemsSource="{Binding TaskItems}" SelectedItem="{Binding SelectedTaskItem}" />
+            <TreeView ItemsSource="{Binding TaskItems}">
+                <e:Interaction.Behaviors>
+                    <behaviors:BindableSelectedItemBehavior SelectedItem="{Binding SelectedTaskItem, Mode=TwoWay}" />
+                </e:Interaction.Behaviors>
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding TaskItems}">
+                        <StackPanel>
+                            <Label Content="{Binding Name}" />
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
         </StackPanel>
     </Grid>
 </UserControl>

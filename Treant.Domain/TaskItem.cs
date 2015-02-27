@@ -1,11 +1,12 @@
 ﻿namespace Treant.Domain
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
     public class TaskItem : Entity
     {
@@ -24,5 +25,10 @@
         public int OwnerBoardID { get; set; }
 
         public virtual Board OwnerBoard { get; set; }
+
+        public virtual int? TaskItemParentID { get; set; }
+
+        [ForeignKey("TaskItemParentID")]
+        public virtual ICollection<TaskItem> TaskItems { get; set; }
     }
 }

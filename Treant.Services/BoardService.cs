@@ -82,10 +82,12 @@
         {
             using (var db = MefBootstrap.Resolve<ApplicationDbContext>())
             {
-                return db.Set<Board>()
+                var taskItems = db.Set<Board>()
                     .Include(o => o.TaskItems)
                     .Single(o => o.ID == board.ID)
-                    .TaskItems;
+                    .TaskItems.Where(o => !o.TaskItemParentID.HasValue).ToList();
+
+                return taskItems;
             }
         }
     }
