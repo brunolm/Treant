@@ -75,6 +75,7 @@
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Messages\BoardOpenMessage.cs" />
+    <Compile Include="MockViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BoardViewModel.cs" />
     <Compile Include="ViewModels\Controls\ElementCreatorToolBarViewModel.cs" />
